@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hfy.example.dao.TasksMapper" >
+  <resultMap id="BaseResultMap" type="com.hfy.example.bean.Tasks" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="distributor_name" property="distributorName" jdbcType="VARCHAR" />
+    <result column="distributor_id" property="distributorId" jdbcType="INTEGER" />
+    <result column="executant_name" property="executantName" jdbcType="VARCHAR" />
+    <result column="executant_id" property="executantId" jdbcType="INTEGER" />
+    <result column="task_describe" property="taskDescribe" jdbcType="VARCHAR" />
+    <result column="finished_mark" property="finishedMark" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, distributor_name, distributor_id, executant_name, executant_id, task_describe, 
+    finished_mark, remark, start_time, end_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hfy.example.bean.TasksExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tasks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tasks
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tasks
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hfy.example.bean.TasksExample" >
+    delete from tasks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hfy.example.bean.Tasks" >
+    insert into tasks (id, distributor_name, distributor_id, 
+      executant_name, executant_id, task_describe, 
+      finished_mark, remark, start_time, 
+      end_time)
+    values (#{id,jdbcType=INTEGER}, #{distributorName,jdbcType=VARCHAR}, #{distributorId,jdbcType=INTEGER}, 
+      #{executantName,jdbcType=VARCHAR}, #{executantId,jdbcType=INTEGER}, #{taskDescribe,jdbcType=VARCHAR}, 
+      #{finishedMark,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hfy.example.bean.Tasks" >
+    insert into tasks
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="distributorName != null" >
+        distributor_name,
+      </if>
+      <if test="distributorId != null" >
+        distributor_id,
+      </if>
+      <if test="executantName != null" >
+        executant_name,
+      </if>
+      <if test="executantId != null" >
+        executant_id,
+      </if>
+      <if test="taskDescribe != null" >
+        task_describe,
+      </if>
+      <if test="finishedMark != null" >
+        finished_mark,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="distributorName != null" >
+        #{distributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="distributorId != null" >
+        #{distributorId,jdbcType=INTEGER},
+      </if>
+      <if test="executantName != null" >
+        #{executantName,jdbcType=VARCHAR},
+      </if>
+      <if test="executantId != null" >
+        #{executantId,jdbcType=INTEGER},
+      </if>
+      <if test="taskDescribe != null" >
+        #{taskDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="finishedMark != null" >
+        #{finishedMark,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hfy.example.bean.TasksExample" resultType="java.lang.Integer" >
+    select count(*) from tasks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tasks
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.distributorName != null" >
+        distributor_name = #{record.distributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distributorId != null" >
+        distributor_id = #{record.distributorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.executantName != null" >
+        executant_name = #{record.executantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executantId != null" >
+        executant_id = #{record.executantId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskDescribe != null" >
+        task_describe = #{record.taskDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishedMark != null" >
+        finished_mark = #{record.finishedMark,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tasks
+    set id = #{record.id,jdbcType=INTEGER},
+      distributor_name = #{record.distributorName,jdbcType=VARCHAR},
+      distributor_id = #{record.distributorId,jdbcType=INTEGER},
+      executant_name = #{record.executantName,jdbcType=VARCHAR},
+      executant_id = #{record.executantId,jdbcType=INTEGER},
+      task_describe = #{record.taskDescribe,jdbcType=VARCHAR},
+      finished_mark = #{record.finishedMark,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hfy.example.bean.Tasks" >
+    update tasks
+    <set >
+      <if test="distributorName != null" >
+        distributor_name = #{distributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="distributorId != null" >
+        distributor_id = #{distributorId,jdbcType=INTEGER},
+      </if>
+      <if test="executantName != null" >
+        executant_name = #{executantName,jdbcType=VARCHAR},
+      </if>
+      <if test="executantId != null" >
+        executant_id = #{executantId,jdbcType=INTEGER},
+      </if>
+      <if test="taskDescribe != null" >
+        task_describe = #{taskDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="finishedMark != null" >
+        finished_mark = #{finishedMark,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hfy.example.bean.Tasks" >
+    update tasks
+    set distributor_name = #{distributorName,jdbcType=VARCHAR},
+      distributor_id = #{distributorId,jdbcType=INTEGER},
+      executant_name = #{executantName,jdbcType=VARCHAR},
+      executant_id = #{executantId,jdbcType=INTEGER},
+      task_describe = #{taskDescribe,jdbcType=VARCHAR},
+      finished_mark = #{finishedMark,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

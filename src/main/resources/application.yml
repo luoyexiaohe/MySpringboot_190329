@@ -1,0 +1,31 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 80
+  servlet:
+    context-path: /test
+
+spring:
+  datasource:
+    name: MySpringboot_190329
+    url: jdbc:mysql://localhost:3306/jcoa?useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    prefix: classpath:/html/
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    mode: HTML5
+    cache: false
+
+
+
+mybatis:
+  mapper-locations: classpath:xml/*.xml
+  type-aliases-package: com.hfy.example.bean
+

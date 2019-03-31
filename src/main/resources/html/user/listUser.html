@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/test/js/vue.min.js"></script>
+</head>
+<body>
+Hello World !
+<div id="app">
+    <ol>
+        <li  th:each="user,userStat : ${listUser}">
+            <p th:text="${user.name}"></p>
+        </li>
+    </ol>
+</div>
+</body>
+</html>
